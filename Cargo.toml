@@ -1,0 +1,18 @@
+[package]
+name = "eclipsecon-demo"
+version = "0.1.0"
+edition = "2018"
+authors = [
+    "Ulf Lilleengen <lulf@redhat.com>",
+    "Jens Reimann <jreimann@redhat.com>"
+]
+
+[dependencies]
+embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "c458ad52e698ae0e9810e90d094394bd3ab35c77", default-features = false }
+drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "4963cfc982508cd622933a6b364826b5ed8f22ba", features = ["fonts"], default-features = false }
+embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "c458ad52e698ae0e9810e90d094394bd3ab35c77", default-features = false, optional = true }
+
+
+[features]
+wasm = ["embassy/executor-agnostic"]
+microbit = ["embassy-nrf"]
