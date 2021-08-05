@@ -206,6 +206,7 @@ dependencies = [
  "cfg-if",
  "cortex-m 0.6.7",
  "cortex-m-rt",
+ "critical-section",
  "drogue-device",
  "embassy",
  "embassy-nrf",

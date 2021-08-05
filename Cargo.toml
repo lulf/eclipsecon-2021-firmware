@@ -8,6 +8,10 @@ authors = [
     "Jens Reimann <jreimann@redhat.com>"
 ]
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+path = "src/main.rs"
+
 [dependencies]
 embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "c458ad52e698ae0e9810e90d094394bd3ab35c77", default-features = false }
 #drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "4963cfc982508cd622933a6b364826b5ed8f22ba", features = ["fonts", "log"], default-features = false }
@@ -22,6 +26,7 @@ js-sys = { version = "0.3", optional = true }
 wasm-bindgen-futures = { version = "0.4.24", optional = true }
 wasm-logger = { version = "0.2.0", optional = true }
 web-sys = { version = "0.3.4", features = ['Document', 'Element', 'HtmlElement', 'Node', 'Window'], optional = true }
+critical-section = { version = "0.2.1", features = ["custom-impl"], optional = true }
 
 # microbit dependencies
 embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "c458ad52e698ae0e9810e90d094394bd3ab35c77", default-features = false, features = ["nrf52833"], optional = true }
@@ -32,5 +37,5 @@ rtt-logger = { version = "0.1", optional = true }
 rtt-target = { version = "0.2.0", features = ["cortex-m"], optional = true }
 
 [features]
-wasm = ["embassy/executor-agnostic", "wasm-bindgen", "js-sys", "wasm-bindgen-futures", "wasm-logger", "web-sys"]
+wasm = ["embassy/executor-agnostic", "wasm-bindgen", "js-sys", "wasm-bindgen-futures", "wasm-logger", "web-sys", "critical-section"]
 microbit = ["embassy-nrf", "cortex-m", "cortex-m-rt", "panic-probe", "rtt-logger", "rtt-target"]

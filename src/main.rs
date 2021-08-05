@@ -1,9 +1,10 @@
-#![no_std]
-#![no_main]
+#![cfg_attr(features = "microbit", no_std)]
+#![cfg_attr(features = "microbit", no_main)]
 #![macro_use]
 #![allow(incomplete_features)]
 #![feature(generic_associated_types)]
 #![feature(min_type_alias_impl_trait)]
+#![feature(const_fn_fn_ptr_basics)]
 #![feature(impl_trait_in_bindings)]
 #![feature(type_alias_impl_trait)]
 #![feature(concat_idents)]
@@ -13,6 +14,14 @@ mod app;
 cfg_if::cfg_if! {
     if #[cfg(feature = "wasm")] {
         mod system;
+        mod components;
+
+        use system::*;
+        use components::*;
+
+        use wasm_bindgen::prelude::*;
+        use wasm_bindgen_futures::spawn_local;
+
     } else if #[cfg(feature = "microbit")] {
         use panic_probe as _;
         use rtt_logger::RTTLogger;
@@ -92,5 +101,41 @@ async fn main(spawner: embassy::executor::Spawner, p: Peripherals) {
 #[cfg(feature = "wasm")]
 #[wasm_bindgen(start)]
 pub fn main() -> Result<(), JsValue> {
+    /*
+    wasm_logger::init(wasm_logger::Config::default());
+    let spawner = system::WasmSpawner::new();
+
+    // Configure HTML elements
+    unsafe {
+        INPUT1.configure("button");
+        OUTPUT1.configure("led", |value| {
+            if value {
+                log::info!("ON");
+                "ON"
+            } else {
+                log::info!("OFF");
+                "OFF"
+            }
+        });
+    }
+
+    let button = WebButton::new(unsafe { &INPUT1 });
+    let led = WebLed::new(unsafe { &OUTPUT1 });
+
+    DEVICE.configure(MyDevice {
+        led: ActorContext::new(Led::new(led)),
+        button: ActorContext::new(Button::new(button)),
+    });
+
+    spawn_local(async move {
+        DEVICE
+            .mount(|device| async move {
+                let led = device.led.mount((), spawner);
+                device.button.mount(led, spawner);
+            })
+            .await
+    });
+
+    */
     Ok(())
 }
