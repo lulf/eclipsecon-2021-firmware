@@ -22,11 +22,9 @@ cfg-if = "1.0.0"
 
 # WASM dependencies
 wasm-bindgen = { version = "0.2.74", optional = true }
-js-sys = { version = "0.3", optional = true }
 wasm-bindgen-futures = { version = "0.4.24", optional = true }
 wasm-logger = { version = "0.2.0", optional = true }
-web-sys = { version = "0.3.4", features = ['Document', 'Element', 'HtmlElement', 'Node', 'Window'], optional = true }
-critical-section = { version = "0.2.1", features = ["custom-impl"], optional = true }
+drogue-wasm = { git = "https://github.com/drogue-iot/drogue-wasm", branch = "main", default-features = false, optional = true }
 
 # microbit dependencies
 embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "4b74e8fc50b3b1839f118d9b310f793a46adc416", default-features = false, features = ["nrf52833"], optional = true }
@@ -37,7 +35,7 @@ rtt-logger = { version = "0.1", optional = true }
 rtt-target = { version = "0.2.0", features = ["cortex-m"], optional = true }
 
 [features]
-wasm = ["embassy/executor-agnostic", "wasm-bindgen", "js-sys", "wasm-bindgen-futures", "wasm-logger", "web-sys", "critical-section"]
+wasm = ["embassy/executor-agnostic", "wasm-bindgen", "wasm-bindgen-futures", "wasm-logger", "drogue-wasm"]
 microbit = ["embassy-nrf",
     #"cortex-m", 
     "cortex-m-rt",
