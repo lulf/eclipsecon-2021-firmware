@@ -21,7 +21,8 @@ embedded-hal = { version = "0.2.4", features = ["unproven"] }
 cfg-if = "1.0.0"
 
 # WASM dependencies
-wasm-bindgen = { version = "0.2.74", optional = true }
+wasm-bindgen = { version = "=0.2.75", optional = true }
+js-sys = { version = "0.3", optional = true }
 wasm-bindgen-futures = { version = "0.4.24", optional = true }
 wasm-logger = { version = "0.2.0", optional = true }
 drogue-wasm = { git = "https://github.com/drogue-iot/drogue-wasm", branch = "main", default-features = false, optional = true }
