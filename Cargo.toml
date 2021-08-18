@@ -13,9 +13,9 @@ crate-type = ["cdylib", "rlib"]
 path = "src/main.rs"
 
 [dependencies]
-embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "c458ad52e698ae0e9810e90d094394bd3ab35c77", default-features = false }
-#drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "4963cfc982508cd622933a6b364826b5ed8f22ba", features = ["fonts", "log"], default-features = false }
-drogue-device = { path = "../drogue-iot/drogue-device/device", features = ["fonts", "log"], default-features = false }
+embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "4b74e8fc50b3b1839f118d9b310f793a46adc416", default-features = false }
+drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "e3daa54d71f71f952bc358faf6afa6170e72b00b", features = ["fonts", "log"], default-features = false }
+#drogue-device = { path = "../drogue-iot/drogue-device/device", features = ["fonts", "log"], default-features = false }
 log = "0.4"
 embedded-hal = { version = "0.2.4", features = ["unproven"] }
 cfg-if = "1.0.0"
@@ -29,7 +29,7 @@ web-sys = { version = "0.3.4", features = ['Document', 'Element', 'HtmlElement',
 critical-section = { version = "0.2.1", features = ["custom-impl"], optional = true }
 
 # microbit dependencies
-embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "c458ad52e698ae0e9810e90d094394bd3ab35c77", default-features = false, features = ["nrf52833"], optional = true }
+embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "4b74e8fc50b3b1839f118d9b310f793a46adc416", default-features = false, features = ["nrf52833"], optional = true }
 cortex-m-rt = { version = "0.6", optional = true }
 cortex-m = { version = "0.6", features = ["inline-asm"], optional = true }
 panic-probe = { version = "0.2.0", features = ["print-rtt"], optional = true }

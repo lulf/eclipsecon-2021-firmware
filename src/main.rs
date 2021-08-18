@@ -3,9 +3,7 @@
 #![macro_use]
 #![allow(incomplete_features)]
 #![feature(generic_associated_types)]
-#![feature(min_type_alias_impl_trait)]
 #![feature(const_fn_fn_ptr_basics)]
-#![feature(impl_trait_in_bindings)]
 #![feature(type_alias_impl_trait)]
 #![feature(concat_idents)]
 
