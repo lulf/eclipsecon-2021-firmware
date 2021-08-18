@@ -1,5 +1,5 @@
-#![cfg_attr(features = "microbit", no_std)]
-#![cfg_attr(features = "microbit", no_main)]
+#![cfg_attr(feature = "microbit", no_std)]
+#![cfg_attr(feature = "microbit", no_main)]
 #![macro_use]
 #![allow(incomplete_features)]
 #![feature(generic_associated_types)]
@@ -99,7 +99,6 @@ async fn main(spawner: embassy::executor::Spawner, p: Peripherals) {
 #[cfg(feature = "wasm")]
 #[wasm_bindgen(start)]
 pub fn main() -> Result<(), JsValue> {
-    /*
     wasm_logger::init(wasm_logger::Config::default());
     let spawner = system::WasmSpawner::new();
 
@@ -121,19 +120,15 @@ pub fn main() -> Result<(), JsValue> {
     let led = WebLed::new(unsafe { &OUTPUT1 });
 
     DEVICE.configure(MyDevice {
-        led: ActorContext::new(Led::new(led)),
-        button: ActorContext::new(Button::new(button)),
+        app: App::new(button, led),
     });
 
     spawn_local(async move {
         DEVICE
             .mount(|device| async move {
-                let led = device.led.mount((), spawner);
-                device.button.mount(led, spawner);
+                device.app.mount((), spawner);
             })
             .await
     });
-
-    */
     Ok(())
 }

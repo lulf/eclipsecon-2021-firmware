@@ -30,12 +30,15 @@ critical-section = { version = "0.2.1", features = ["custom-impl"], optional = t
 
 # microbit dependencies
 embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "4b74e8fc50b3b1839f118d9b310f793a46adc416", default-features = false, features = ["nrf52833"], optional = true }
-cortex-m-rt = { version = "0.6", optional = true }
-cortex-m = { version = "0.6", features = ["inline-asm"], optional = true }
+cortex-m-rt = { version = "0.6.13", optional = true }
+#cortex-m = { version = "0.7.1", features = ["inline-asm"], optional = true }
 panic-probe = { version = "0.2.0", features = ["print-rtt"], optional = true }
 rtt-logger = { version = "0.1", optional = true }
 rtt-target = { version = "0.2.0", features = ["cortex-m"], optional = true }
 
 [features]
 wasm = ["embassy/executor-agnostic", "wasm-bindgen", "js-sys", "wasm-bindgen-futures", "wasm-logger", "web-sys", "critical-section"]
-microbit = ["embassy-nrf", "cortex-m", "cortex-m-rt", "panic-probe", "rtt-logger", "rtt-target"]
+microbit = ["embassy-nrf",
+    #"cortex-m", 
+    "cortex-m-rt",
+        "panic-probe", "rtt-logger", "rtt-target"]
