@@ -1,6 +1,6 @@
 use drogue_device::{
     actors::{button::Button, led::Led},
-    Actor, ActorContext, ActorSpawner, Address, Package,
+    ActorContext, ActorSpawner, Address, Package,
 };
 use embassy::traits::gpio::WaitForAnyEdge;
 use embedded_hal::digital::v2::{InputPin, OutputPin};

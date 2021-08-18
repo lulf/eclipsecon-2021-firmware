@@ -14,7 +14,6 @@ cfg_if::cfg_if! {
         mod system;
         mod components;
 
-        use system::*;
         use components::*;
 
         use wasm_bindgen::prelude::*;
@@ -60,9 +59,6 @@ cfg_if::cfg_if! {
 
 use app::*;
 use drogue_device::{DeviceContext, Package};
-use embedded_hal::digital::v2::{InputPin, OutputPin};
-
-use log::LevelFilter;
 
 struct MyDevice {
     #[cfg(feature = "microbit")]
@@ -76,6 +72,7 @@ static DEVICE: DeviceContext<MyDevice> = DeviceContext::new();
 #[cfg(feature = "microbit")]
 #[embassy::main]
 async fn main(spawner: embassy::executor::Spawner, p: Peripherals) {
+    use log::LevelFilter;
     rtt_init_print!();
     log::set_logger(&LOGGER).unwrap();
     log::set_max_level(log::LevelFilter::Trace);

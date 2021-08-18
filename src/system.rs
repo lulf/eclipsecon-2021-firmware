@@ -1,4 +1,4 @@
-use drogue_device::{*, kernel::signal::SignalSlot};
+use drogue_device::{kernel::signal::SignalSlot, *};
 use embassy::executor::SpawnError;
 use wasm_bindgen_futures::spawn_local;
 
