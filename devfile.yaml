@@ -1,0 +1,41 @@
+apiVersion: 1.0.0
+metadata:
+  name: eclipsecon-2021-firmware
+attributes:
+  persistVolumes: 'false'
+projects:
+  - name: eclipsecon-2021-firmware
+    source:
+      type: git
+      location: 'https://github.com/lulf/eclipsecon-2021-firmware'
+components:
+  - type: dockerimage
+    alias: rust-dev
+    #image: 'docker.io/library/rust:1'
+    image: 'quay.io/ctron/che-rust-dev:latest'
+    memoryLimit: 2Gi
+    mountSources: true
+    command: ['sleep', 'infinity']
+    endpoints:
+      - name: device
+        port: 8080
+        attributes:
+          discoverable: "true"
+          public: "false"
+  - alias: rust-plugin
+    type: chePlugin
+    id: rust-lang/rust/latest
+    registryUrl: https://eclipse-che.github.io/che-plugin-registry/main/v3
+commands:
+  - name: firmware build
+    actions:
+      - type: exec
+        component: rust-dev
+        command: 'cargo build --target thumbv7em-none-eabihf --features microbit --release'
+        workdir: ${CHE_PROJECTS_ROOT}/eclipsecon-2021-firmware
+  - name: emulator build
+    actions:
+      - type: exec
+        component: rust-dev
+        command: 'wasm-pack build --target web -- --features wasm'
+        workdir: ${CHE_PROJECTS_ROOT}/eclipsecon-2021-firmware
