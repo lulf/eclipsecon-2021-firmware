@@ -17,4 +17,4 @@ wasm-pack build --target web -- --features wasm
 python3 -m http.server
 ```
 
-Then open your browser at http://localhost:8080
+Then open your browser at http://localhost:8000
