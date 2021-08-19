@@ -18,10 +18,12 @@ components:
     command: ['sleep', 'infinity']
     endpoints:
       - name: device
-        port: 8080
+        port: 8000
         attributes:
           discoverable: "true"
-          public: "false"
+          public: "true"
+          protocol: http
+          secure: "false"
   - alias: rust-plugin
     type: chePlugin
     id: rust-lang/rust/latest
@@ -38,4 +40,10 @@ commands:
       - type: exec
         component: rust-dev
         command: 'wasm-pack build --target web -- --features wasm'
+        workdir: ${CHE_PROJECTS_ROOT}/eclipsecon-2021-firmware
+  - name: emulator run
+    actions:
+      - type: exec
+        component: rust-dev
+        command: 'python3 -m http.server'
         workdir: ${CHE_PROJECTS_ROOT}/eclipsecon-2021-firmware

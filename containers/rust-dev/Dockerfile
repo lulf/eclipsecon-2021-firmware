@@ -14,6 +14,8 @@ RUN \
 
 RUN \
     curl -sSL https://github.com/WebAssembly/binaryen/releases/download/version_97/binaryen-version_97-x86_64-linux.tar.gz -o binaryen.tar.gz \
- && tar --strip-components=2 -xzvf binaryen.tar.gz '*/wasm-opt' \
+ && tar --strip-components=2 -xzvf binaryen.tar.gz --wildcards '*/wasm-opt' \
  && rm -Rf binaryen.tar.gz \
  && cp wasm-opt /usr/local/cargo/bin/ && rm wasm-opt
+
+ENV WASM_PACK_CACHE /tmp
