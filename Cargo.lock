@@ -216,7 +216,6 @@ dependencies = [
  "embassy",
  "embassy-nrf",
  "embedded-hal",
- "js-sys",
  "log",
  "panic-probe",
  "rtt-logger",
