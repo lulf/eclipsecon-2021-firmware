@@ -110,19 +110,39 @@ dependencies = [
 
 [[package]]
 name = "cortex-m-rt"
-version = "0.6.15"
+version = "0.6.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "454f278bf469e2de0a4d22ea019d169d8944f86957c8207a39e3f66c32be2fc6"
+checksum = "b6d8353767db816419630a76d5f1ad5b09610d22b67ceb59647df6a8abc667f8"
 dependencies = [
- "cortex-m-rt-macros",
+ "cortex-m-rt-macros 0.1.8",
  "r0",
 ]
 
 [[package]]
-name = "cortex-m-rt-macros"
-version = "0.6.15"
+name = "cortex-m-rt"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c8e3aa52243e26f5922fa522b0814019e0c98fc567e2756d715dce7ad7a81f49"
+checksum = "069533b58e25b635fac881eb6556616bd8f83a3e0ffe2b4b9619289ed14d465e"
+dependencies = [
+ "cortex-m-rt-macros 0.7.0",
+]
+
+[[package]]
+name = "cortex-m-rt-macros"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4717562afbba06e760d34451919f5c3bf3ac15c7bb897e8b04862a7428378647"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "cortex-m-rt-macros"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f0f6f3e36f203cfedbc78b357fb28730aa2c6dc1ab060ee5c2405e843988d3c7"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -178,7 +198,7 @@ dependencies = [
 [[package]]
 name = "drogue-device"
 version = "0.1.0"
-source = "git+https://github.com/drogue-iot/drogue-device?rev=e3daa54d71f71f952bc358faf6afa6170e72b00b#e3daa54d71f71f952bc358faf6afa6170e72b00b"
+source = "git+https://github.com/drogue-iot/drogue-device?rev=cbf3f40e94edb6be252b9846dca02e95da45b7f8#cbf3f40e94edb6be252b9846dca02e95da45b7f8"
 dependencies = [
  "atomic-polyfill",
  "base64",
@@ -194,7 +214,7 @@ dependencies = [
 [[package]]
 name = "drogue-wasm"
 version = "0.1.0"
-source = "git+https://github.com/drogue-iot/drogue-wasm?branch=main#974bf9517445771d0588587d2d386e96e6bd6d22"
+source = "git+https://github.com/drogue-iot/drogue-wasm?branch=main#eb42cb9b3dc2582813f2920db19418fee37089f2"
 dependencies = [
  "critical-section",
  "drogue-device",
@@ -210,7 +230,7 @@ name = "eclipsecon-demo"
 version = "0.1.0"
 dependencies = [
  "cfg-if",
- "cortex-m-rt",
+ "cortex-m-rt 0.7.0",
  "drogue-device",
  "drogue-wasm",
  "embassy",
@@ -228,7 +248,7 @@ dependencies = [
 [[package]]
 name = "embassy"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy.git?rev=4b74e8fc50b3b1839f118d9b310f793a46adc416#4b74e8fc50b3b1839f118d9b310f793a46adc416"
+source = "git+https://github.com/embassy-rs/embassy.git?rev=548593ea415c79472bd2cf2d0c59aadfcf5f715c#548593ea415c79472bd2cf2d0c59aadfcf5f715c"
 dependencies = [
  "atomic-polyfill",
  "cortex-m 0.7.3",
@@ -243,7 +263,7 @@ dependencies = [
 [[package]]
 name = "embassy-hal-common"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy.git?rev=4b74e8fc50b3b1839f118d9b310f793a46adc416#4b74e8fc50b3b1839f118d9b310f793a46adc416"
+source = "git+https://github.com/embassy-rs/embassy.git?rev=548593ea415c79472bd2cf2d0c59aadfcf5f715c#548593ea415c79472bd2cf2d0c59aadfcf5f715c"
 dependencies = [
  "cortex-m 0.7.3",
  "embassy",
@@ -253,7 +273,7 @@ dependencies = [
 [[package]]
 name = "embassy-macros"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy.git?rev=4b74e8fc50b3b1839f118d9b310f793a46adc416#4b74e8fc50b3b1839f118d9b310f793a46adc416"
+source = "git+https://github.com/embassy-rs/embassy.git?rev=548593ea415c79472bd2cf2d0c59aadfcf5f715c#548593ea415c79472bd2cf2d0c59aadfcf5f715c"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -264,10 +284,10 @@ dependencies = [
 [[package]]
 name = "embassy-nrf"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy.git?rev=4b74e8fc50b3b1839f118d9b310f793a46adc416#4b74e8fc50b3b1839f118d9b310f793a46adc416"
+source = "git+https://github.com/embassy-rs/embassy.git?rev=548593ea415c79472bd2cf2d0c59aadfcf5f715c#548593ea415c79472bd2cf2d0c59aadfcf5f715c"
 dependencies = [
  "cortex-m 0.7.3",
- "cortex-m-rt",
+ "cortex-m-rt 0.7.0",
  "critical-section",
  "embassy",
  "embassy-hal-common",
@@ -282,7 +302,7 @@ dependencies = [
 [[package]]
 name = "embassy-traits"
 version = "0.1.0"
-source = "git+https://github.com/embassy-rs/embassy.git?rev=4b74e8fc50b3b1839f118d9b310f793a46adc416#4b74e8fc50b3b1839f118d9b310f793a46adc416"
+source = "git+https://github.com/embassy-rs/embassy.git?rev=548593ea415c79472bd2cf2d0c59aadfcf5f715c#548593ea415c79472bd2cf2d0c59aadfcf5f715c"
 dependencies = [
  "embedded-hal",
 ]
@@ -431,9 +451,9 @@ checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 
 [[package]]
 name = "js-sys"
-version = "0.3.51"
+version = "0.3.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83bdfbace3a0e81a4253f73b49e960b053e396a11012cbd49b9b74d6a2b67062"
+checksum = "ce791b7ca6638aae45be056e068fc756d871eb3b3b10b8efa62d1c9cec616752"
 dependencies = [
  "wasm-bindgen",
 ]
@@ -470,12 +490,12 @@ checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
 
 [[package]]
 name = "nrf52833-pac"
-version = "0.10.0"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57da33932f7db075fe4137a96bd9f878bc2428075e949e5c297b0b727da70d5b"
+checksum = "cd69bdb25903e18e098c040ef31dc863814437af010dea8bd55aa31f686cb461"
 dependencies = [
  "cortex-m 0.7.3",
- "cortex-m-rt",
+ "cortex-m-rt 0.7.0",
  "vcell",
 ]
 
@@ -486,7 +506,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "45b5c81d6b51f415b3ba40b30dc598dfffb29ad4cf4a8815989754850ce6c0dc"
 dependencies = [
  "cortex-m 0.6.7",
- "cortex-m-rt",
+ "cortex-m-rt 0.6.14",
  "rtt-target",
 ]
 
@@ -610,9 +630,9 @@ checksum = "6446ced80d6c486436db5c078dde11a9f73d42b57fb273121e160b84f63d894c"
 
 [[package]]
 name = "syn"
-version = "1.0.74"
+version = "1.0.75"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1873d832550d4588c3dbc20f01361ab00bfe741048f71e3fecf145a7cc18b29c"
+checksum = "b7f58f7e8eaa0009c5fec437aabf511bd9933e4b2d7407bd05273c01a8906ea7"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -697,9 +717,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-futures"
-version = "0.4.24"
+version = "0.4.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5fba7978c679d53ce2d0ac80c8c175840feb849a161664365d1287b41f2e67f1"
+checksum = "16646b21c3add8e13fdb8f20172f8a28c3dbf62f45406bcff0233188226cfe0c"
 dependencies = [
  "cfg-if",
  "js-sys",
@@ -749,9 +769,9 @@ dependencies = [
 
 [[package]]
 name = "web-sys"
-version = "0.3.51"
+version = "0.3.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e828417b379f3df7111d3a2a9e5753706cae29c41f7c4029ee9fd77f3e09e582"
+checksum = "01c70a82d842c9979078c772d4a1344685045f1a5628f677c2b2eab4dd7d2696"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
