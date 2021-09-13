@@ -62,6 +62,24 @@ cfg_if::cfg_if! {
 
         static LOGGER: RTTLogger = RTTLogger::new(LevelFilter::Trace);
 
+        type BUTTON = PortInput<'static, P0_14>;
+        type LED = MatrixOutput;
+
+        #[embassy::main]
+        async fn main(spawner: Spawner, p: Peripherals) {
+            rtt_init_print!();
+            log::set_logger(&LOGGER).unwrap();
+            log::set_max_level(log::LevelFilter::Trace);
+
+            let button = PortInput::new(Input::new(p.P0_14, Pull::Up));
+            let led = MatrixOutput {
+                row: Output::new(p.P0_21.degrade(), Level::Low, OutputDrive::Standard),
+                col: Output::new(p.P0_28.degrade(), Level::Low, OutputDrive::Standard),
+            };
+
+            MyDevice::start(button, led, spawner).await;
+        }
+
         pub struct MatrixOutput {
             row: Output<'static, AnyPin>,
             col: Output<'static, AnyPin>,
@@ -83,22 +101,5 @@ cfg_if::cfg_if! {
             }
         }
 
-        type BUTTON = PortInput<'static, P0_14>;
-        type LED = MatrixOutput;
-
-        #[embassy::main]
-        async fn main(spawner: Spawner, p: Peripherals) {
-            rtt_init_print!();
-            log::set_logger(&LOGGER).unwrap();
-            log::set_max_level(log::LevelFilter::Trace);
-
-            let button = PortInput::new(Input::new(p.P0_14, Pull::Up));
-            let led = MatrixOutput {
-                row: Output::new(p.P0_21.degrade(), Level::Low, OutputDrive::Standard),
-                col: Output::new(p.P0_28.degrade(), Level::Low, OutputDrive::Standard),
-            };
-
-            MyDevice::start(button, led, spawner).await;
-        }
     }
 }
