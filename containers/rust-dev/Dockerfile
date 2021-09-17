@@ -1,10 +1,6 @@
 FROM docker.io/library/rust:1-bullseye
 
 RUN \
-    rustup toolchain install nightly-2021-08-03 -c rust-src -c rustfmt \
-    rustup target add wasm32-unknown-unknown
-
-RUN \
      curl -sSL https://github.com/rustwasm/wasm-pack/releases/download/v0.10.0/wasm-pack-v0.10.0-x86_64-unknown-linux-musl.tar.gz -o wasm-pack.tar.gz \
   && tar --strip-components=1 -xvzf wasm-pack.tar.gz --wildcards '*/wasm-pack' \
   && rm -Rf wasm-pack.tar.gz \
