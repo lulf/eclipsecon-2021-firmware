@@ -1,6 +1,8 @@
-# eclipsecon 2021 demo
+# EclipseCon 2021 demo
 
-## Builing microbit example
+## Device firmware
+
+### Builing microbit example
 
 ```
 cargo build --target thumbv7em-none-eabihf --features microbit --release
@@ -8,7 +10,7 @@ cargo build --target thumbv7em-none-eabihf --features microbit --release
 
 Press the 'A' button to light the LED.
 
-## Building the wasm example
+### Building the wasm example
 
 ```
 wasm-pack build --target web -- --features wasm
@@ -18,3 +20,24 @@ python3 -m http.server
 ```
 
 Then open your browser at http://localhost:8000
+
+## Cloud setup
+
+### Minikube
+
+Start Minikube:
+
+    minikube start --cpus 4 --memory 16384 --disk-size 20gb --addons ingress
+
+Once it is up, start the tunnel (and leave it running):
+
+    minikube tunnel
+
+### Eclipse Che
+
+Follow the installation instructions from: https://www.eclipse.org/che/docs/che-7/installation-guide/installing-che-on-minikube/
+
+NOTE: Skip the `minikube start` step in this tutorial, as you did this in the step before, with more resources.
+
+## Import project
+
