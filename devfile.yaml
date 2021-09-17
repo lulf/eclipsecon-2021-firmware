@@ -28,6 +28,8 @@ components:
     type: chePlugin
     id: rust-lang/rust/latest
     registryUrl: https://eclipse-che.github.io/che-plugin-registry/main/v3
+  - id: redhat/vscode-yaml/latest
+    type: chePlugin
 commands:
   - name: firmware build
     actions:
