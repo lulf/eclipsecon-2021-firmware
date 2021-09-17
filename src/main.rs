@@ -7,6 +7,7 @@
 #![feature(type_alias_impl_trait)]
 #![feature(concat_idents)]
 
+mod app;
 mod device;
 use device::*;
 use embassy::executor::Spawner;
@@ -25,25 +26,20 @@ cfg_if::cfg_if! {
 
             static mut INPUT1: InputPin = InputPin::new();
             static mut OUTPUT1: OutputPin = OutputPin::new();
+            static mut OUTPUT2: OutputPin = OutputPin::new();
 
             // Configure HTML elements
             unsafe {
                 INPUT1.configure("button");
-                OUTPUT1.configure("led", |value| {
-                    if value {
-                        log::info!("ON");
-                        "ON"
-                    } else {
-                        log::info!("OFF");
-                        "OFF"
-                    }
-                });
+                OUTPUT1.configure("led1", |value| LedColor::Red + value );
+                OUTPUT2.configure("led2", |value| LedColor::Green + value );
             }
 
             let button = WebButton::new(unsafe { &INPUT1 });
-            let led = WebLed::new(unsafe { &OUTPUT1 });
+            let led1 = WebLed::new(unsafe { &OUTPUT1 });
+            let led2 = WebLed::new(unsafe { &OUTPUT2 });
 
-            MyDevice::start(button, led, spawner).await;
+            MyDevice::start(button, led1, led2, spawner).await;
         }
 
     } else if #[cfg(feature = "microbit")] {
