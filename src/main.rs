@@ -63,7 +63,7 @@ cfg_if::cfg_if! {
         };
 
         static LOGGER: RTTLogger = RTTLogger::new(LevelFilter::Trace);
-        static MATRIX: Forever<ActorContext<'static, LedMatrixActor<Output<'static, AnyPin>, 5, 5>>> = Forever::new();
+        static MATRIX: Forever<ActorContext<'static, LedMatrixActor<Output<'static, AnyPin>, 5, 5>, 10>> = Forever::new();
 
         type BUTTON = PortInput<'static, P0_14>;
         type LED = MatrixOutput;
