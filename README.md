@@ -5,7 +5,13 @@
 ### Builing microbit example
 
 ```
-cargo build --target thumbv7em-none-eabihf --features microbit --release
+RUSTFLAGS='-C link-arg=--nmagic -C link-arg=-Tlink.x' cargo build --target thumbv7em-none-eabihf --features microbit --release
+```
+
+### Running microbit example
+
+```
+probe-run --chip nrf52833_xxAA target/thumbv7em-none-eabihf/release/eclipsecon-demo
 ```
 
 Press the 'A' button to light the LED.
