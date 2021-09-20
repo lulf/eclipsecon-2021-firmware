@@ -13,8 +13,8 @@ crate-type = ["cdylib", "rlib"]
 path = "src/main.rs"
 
 [dependencies]
-embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "bb72f7eb98ed0431a6b6adf3c59831aed0c4825a", default-features = false }
-drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "ce24c43a4ade5b58719375181b381bced538764c", features = ["fonts", "log"], default-features = false }
+embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297", default-features = false }
+drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "ffe8a6bc3757eda8090f71d02455d817d85cf534", features = ["fonts", "log", "time"], default-features = false }
 log = "0.4"
 embedded-hal = { version = "0.2.4", features = ["unproven"] }
 cfg-if = "1.0.0"
@@ -25,7 +25,7 @@ wasm-logger = { version = "0.2", optional = true }
 drogue-wasm = { git = "https://github.com/drogue-iot/drogue-wasm", branch = "main", default-features = false, optional = true }
 
 # microbit dependencies
-embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "bb72f7eb98ed0431a6b6adf3c59831aed0c4825a", default-features = false, features = ["nrf52833", "gpiote"], optional = true }
+embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297", default-features = false, features = ["nrf52833", "gpiote", "time-driver-rtc1"], optional = true }
 cortex-m-rt = { version = "0.7", optional = true }
 #cortex-m = { version = "0.7.1", features = ["inline-asm"], optional = true }
 panic-probe = { version = "0.2.0", features = ["print-rtt"], optional = true }
@@ -35,3 +35,8 @@ rtt-target = { version = "0.2.0", features = ["cortex-m"], optional = true }
 [features]
 wasm = ["wasm-bindgen", "wasm-logger", "drogue-wasm", "embassy/wasm"]
 microbit = ["embassy-nrf", "cortex-m-rt", "panic-probe", "rtt-logger", "rtt-target"]
+
+[patch.crates-io]
+embassy = { git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297" }
+embassy-nrf = { git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297" }
+embassy-hal-common = { git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297" }

@@ -66,7 +66,9 @@ impl Actor for App {
             loop {
                 match inbox.next().await {
                     Some(mut m) => match m.message() {
-                        Command::Toggle => self.toggle().ok(),
+                        Command::Toggle => {
+                            self.toggle().ok();
+                        }
                     },
                     _ => {}
                 }
