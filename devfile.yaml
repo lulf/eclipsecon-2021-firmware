@@ -40,7 +40,7 @@ commands:
     actions:
       - type: exec
         component: rust-dev
-        command: 'cargo build --target thumbv7em-none-eabihf --features microbit --release'
+        command: 'RUSTFLAGS="-C link-arg=--nmagic -C link-arg=-Tlink.x" cargo build --target thumbv7em-none-eabihf --features microbit --release'
         workdir: ${CHE_PROJECTS_ROOT}/eclipsecon-2021-firmware
   - name: emulator build
     actions:
