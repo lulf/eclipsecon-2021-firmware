@@ -2,6 +2,8 @@
 
 ## Device firmware
 
+NOTE: You will need a Micro:bit v2 for this demo.
+
 ### Builing microbit example
 
 ```
@@ -33,11 +35,15 @@ Then open your browser at http://localhost:8000
 
 Start Minikube:
 
-    minikube start --cpus 4 --memory 16384 --disk-size 20gb --addons ingress
+```
+minikube start --cpus 4 --memory 16384 --disk-size 20gb --addons ingress
+```
 
 Once it is up, start the tunnel (and leave it running):
 
-    minikube tunnel
+```
+minikube tunnel
+```
 
 ### Eclipse Che
 
@@ -47,3 +53,4 @@ NOTE: Skip the `minikube start` step in this tutorial, as you did this in the st
 
 ## Import project
 
+Import a new project from this repository: https://github.com/lulf/eclipsecon-2021-firmware
