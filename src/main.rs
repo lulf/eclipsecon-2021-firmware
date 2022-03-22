@@ -3,7 +3,6 @@
 #![macro_use]
 #![allow(incomplete_features)]
 #![feature(generic_associated_types)]
-#![feature(const_fn_fn_ptr_basics)]
 #![feature(type_alias_impl_trait)]
 #![feature(concat_idents)]
 
@@ -14,7 +13,7 @@ use embassy::executor::Spawner;
 
 cfg_if::cfg_if! {
     if #[cfg(feature = "wasm")] {
-        use wasm_bindgen::prelude::*;
+        //use wasm_bindgen::prelude::*;
         use drogue_wasm::*;
 
         type BUTTON = WebButton;
@@ -50,22 +49,20 @@ cfg_if::cfg_if! {
         use embedded_hal::digital::v2::OutputPin;
 
         use embassy_nrf::{
-            gpio::{AnyPin, Input, Level, Output, OutputDrive, Pin, Pull},
-            gpiote::PortInput,
+            gpio::{Input},
             peripherals::{P0_14},
             Peripherals,
         };
-        use embassy::{time::Duration, util::Forever};
         use drogue_device::{
             *,
-            drivers::led::matrix::*,
-            actors::led::matrix::*,
+            actors::led::matrix::MatrixCommand,
+            bsp::boards::nrf52::microbit::*,
         };
 
         static LOGGER: RTTLogger = RTTLogger::new(LevelFilter::Trace);
-        static MATRIX: Forever<ActorContext<'static, LedMatrixActor<Output<'static, AnyPin>, 5, 5>, 10>> = Forever::new();
+        static MATRIX: ActorContext<LedMatrixActor, 10> = ActorContext::new();
 
-        type BUTTON = PortInput<'static, P0_14>;
+        type BUTTON = Input<'static, P0_14>;
         type LED = MatrixOutput;
 
         #[embassy::main]
@@ -74,46 +71,26 @@ cfg_if::cfg_if! {
             log::set_logger(&LOGGER).unwrap();
             log::set_max_level(log::LevelFilter::Trace);
 
-            let output_pin = |pin: AnyPin| {
-                Output::new(pin, Level::Low, OutputDrive::Standard)
-            };
+            let board = Microbit::new(p);
+            let matrix = MATRIX.mount(spawner, LedMatrixActor::new(board.display, None));
 
-            // LED Matrix
-            let rows = [
-                output_pin(p.P0_21.degrade()),
-                output_pin(p.P0_22.degrade()),
-                output_pin(p.P0_15.degrade()),
-                output_pin(p.P0_24.degrade()),
-                output_pin(p.P0_19.degrade()),
-            ];
+            // Max brightness
+            matrix.request(MatrixCommand::MaxBrightness).unwrap().await;
 
-            let cols = [
-                output_pin(p.P0_28.degrade()),
-                output_pin(p.P0_11.degrade()),
-                output_pin(p.P0_31.degrade()),
-                output_pin(p.P1_05.degrade()),
-                output_pin(p.P0_30.degrade()),
-            ];
-
-            let matrix = LedMatrix::new(rows, cols);
-            let matrix = MATRIX.put(ActorContext::new(LedMatrixActor::new(Duration::from_millis(1000 / 200), matrix)));
-            let matrix = matrix.mount((), spawner);
-
-            let button = PortInput::new(Input::new(p.P0_14, Pull::Up));
             let led1 = MatrixOutput::new(matrix.clone(), 0, 0);
             let led2 = MatrixOutput::new(matrix.clone(), 4, 4);
 
-            MyDevice::start(button, led1, led2, spawner).await;
+            MyDevice::start(board.btn_a, led1, led2, spawner).await;
         }
 
         pub struct MatrixOutput {
-            matrix: Address<'static, LedMatrixActor<Output<'static, AnyPin>, 5, 5>>,
+            matrix: Address<LedMatrixActor>,
             row: usize,
             col: usize,
         }
 
         impl MatrixOutput {
-            pub fn new(address: Address<'static, LedMatrixActor<Output<'static, AnyPin>, 5, 5>>, row: usize, col: usize) -> Self {
+            pub fn new(address: Address<LedMatrixActor>, row: usize, col: usize) -> Self {
                 Self {
                     matrix: address,
                     row,

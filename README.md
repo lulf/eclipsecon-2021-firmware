@@ -7,7 +7,7 @@ NOTE: You will need a Micro:bit v2 for this demo.
 ### Builing microbit example
 
 ```
-RUSTFLAGS='-C link-arg=--nmagic -C link-arg=-Tlink.x' cargo build --target thumbv7em-none-eabihf --features microbit --release
+cargo build --target thumbv7em-none-eabihf --features microbit --release
 ```
 
 ### Running microbit example

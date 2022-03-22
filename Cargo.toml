@@ -13,8 +13,8 @@ crate-type = ["cdylib", "rlib"]
 path = "src/main.rs"
 
 [dependencies]
-embassy = {git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297", default-features = false }
-drogue-device = { git = "https://github.com/drogue-iot/drogue-device", rev = "ffe8a6bc3757eda8090f71d02455d817d85cf534", features = ["fonts", "log", "time"], default-features = false }
+embassy = { version = "0.1.0", default-features = false }
+drogue-device = { version = "0.1.0", features = ["log", "time"], default-features = false }
 log = "0.4"
 embedded-hal = { version = "0.2.4", features = ["unproven"] }
 cfg-if = "1.0.0"
@@ -25,18 +25,17 @@ wasm-logger = { version = "0.2", optional = true }
 drogue-wasm = { git = "https://github.com/drogue-iot/drogue-wasm", branch = "main", default-features = false, optional = true }
 
 # microbit dependencies
-embassy-nrf = {git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297", default-features = false, features = ["nrf52833", "gpiote", "time-driver-rtc1"], optional = true }
+embassy-nrf = { version = "0.1.0", default-features = false, features = ["nrf52833", "gpiote", "time-driver-rtc1", "nightly", "unstable-traits"], optional = true }
 cortex-m-rt = { version = "0.7", optional = true }
-#cortex-m = { version = "0.7.1", features = ["inline-asm"], optional = true }
 panic-probe = { version = "0.2.0", features = ["print-rtt"], optional = true }
 rtt-logger = { version = "0.1", optional = true }
 rtt-target = { version = "0.2.0", features = ["cortex-m"], optional = true }
 
 [features]
 wasm = ["wasm-bindgen", "wasm-logger", "drogue-wasm", "embassy/wasm"]
-microbit = ["embassy-nrf", "cortex-m-rt", "panic-probe", "rtt-logger", "rtt-target"]
+microbit = ["embassy-nrf", "cortex-m-rt", "panic-probe", "rtt-logger", "rtt-target", "drogue-device/bsp+microbit"]
 
 [patch.crates-io]
-embassy = { git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297" }
-embassy-nrf = { git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297" }
-embassy-hal-common = { git = "https://github.com/embassy-rs/embassy.git", rev = "fb697a265752644d835edce27efbb20d5557b297" }
+embassy = { git = "https://github.com/embassy-rs/embassy.git", rev = "da9c0efaad594b48cfcdf641d353133d14cf98fe" }
+embassy-nrf = { git = "https://github.com/embassy-rs/embassy.git", rev = "da9c0efaad594b48cfcdf641d353133d14cf98fe" }
+drogue-device = { git = "https://github.com/drogue-iot/drogue-device.git", rev = "294ca5337864937664232c11c44dedd9d7c15b80" }
